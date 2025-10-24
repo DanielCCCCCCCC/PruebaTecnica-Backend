@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config'; // 1. Importa
 import { AppController } from './app.controller';
 import { VehiclesModule } from './modules/vehicle/vehicle.module';
 import { RecordsModule } from './modules/records/records.module';
+import { DriversModule } from './modules/drivers/driver.module';
+
 import { AppService } from './app.service';
 
 @Module({
@@ -45,6 +47,7 @@ import { AppService } from './app.service';
     }),
     VehiclesModule,
     RecordsModule,
+    DriversModule,
   ],
   controllers: [AppController],
   providers: [AppService],

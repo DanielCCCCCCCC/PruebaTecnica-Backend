@@ -1,13 +1,18 @@
 // src/records/records.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RecordsController } from './controllers/records.controller';
+import { RecordsService } from './services/records.service';
 import { VehicleRecord } from './entities/vehicle-record.entity';
-import { RecordsController } from './records.controller';
-import { RecordsService } from './records.service';
-import { VehiclesModule } from '../vehicles/vehicles.module';
+import { VehiclesModule } from '../vehicle/vehicle.module';
+import { DriversModule } from '../drivers/driver.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([VehicleRecord]), VehiclesModule],
+  imports: [
+    TypeOrmModule.forFeature([VehicleRecord]),
+    VehiclesModule,
+    DriversModule,
+  ],
   controllers: [RecordsController],
   providers: [RecordsService],
 })

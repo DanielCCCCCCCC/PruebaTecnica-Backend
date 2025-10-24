@@ -8,19 +8,33 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Vehicle } from '../../vehicle/entities/vehicle.entity';
-import { RecordType } from 'src/common/enums/record-type.enum';
+import { Driver } from '../../drivers/entities/driver.entity';
+import { RecordType } from '../../../common/enums/record-type.enum';
 
 @Entity('vehicle_records')
 export class VehicleRecord {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @ManyToOne(() => Vehicle, (vehicle) => vehicle.records)
-  @JoinColumn({ name: 'vehicle_id' })
+  @ManyToOne(() => Vehicle, (vehicle) => vehicle.records, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
+  @JoinColumn({ name: 'vehicleId' })
   vehicle: Vehicle;
 
-  @Column({ type: 'varchar', length: 150 })
-  motorista: string;
+  @Column()
+  vehicleId: string;
+
+  @ManyToOne(() => Driver, (driver) => driver.records, {
+    onDelete: 'SET NULL',
+    nullable: true,
+  })
+  @JoinColumn({ name: 'driverId' })
+  driver: Driver;
+
+  @Column({ nullable: true })
+  driverId: string;
 
   @Column({ type: 'date' })
   fecha: Date;
@@ -34,7 +48,6 @@ export class VehicleRecord {
   @Column({
     type: 'enum',
     enum: RecordType,
-    enumName: 'record_type_enum',
   })
   tipo: RecordType;
 
